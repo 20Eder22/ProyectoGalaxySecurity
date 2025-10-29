@@ -1,0 +1,119 @@
+﻿/* ======== FONDO ======== */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ======== CONTENEDOR ======== */
+.form-container {
+    width: 100%;
+    max-width: 340px;
+    padding: 40px 35px;
+    background: rgba(20, 25, 40, 0.85); /* Fondo oscuro translúcido */
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e3f2fd; /* Azul claro legible */
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ======== ANIMACIÓN ======== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ======== TÍTULO ======== */
+.form-container h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff; /* Título bien visible */
+}
+
+/* ======== CAMPOS ======== */
+.input-field {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3), inset -1px -1px 3px rgba(255,255,255,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+    .input-field::placeholder {
+        color: #cbd5e1;
+    }
+
+    .input-field:focus {
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+    }
+
+/* ======== BOTÓN ======== */
+.btn-submit {
+    width: 100%;
+    padding: 14px 0;
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+    .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    /* ======== ÍCONO ======== */
+    .btn-submit i {
+        font-size: 22px;
+    }
+
+/* ======== TEXTO SECUNDARIO ======== */
+.form-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+    .form-footer a {
+        color: #00c6ff;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+        .form-footer a:hover {
+            color: #90e0ef;
+        }

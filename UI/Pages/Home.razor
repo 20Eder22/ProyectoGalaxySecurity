@@ -1,0 +1,70 @@
+﻿@page "/"
+@using Services
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
+@inject AuthenticationStateProvider Auth
+@inject NavigationManager Navegador
+@inject IToastService ToastService
+
+<PageTitle>Inicio</PageTitle>
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <i class="bi bi-gear-wide-connected"></i>
+        <span>Sistema de Reclamos</span>
+    </div>
+
+    <div class="navbar-links">
+        @foreach (var action in _availableActions)
+        {
+            <a @onclick="@(() => Navegador.NavigateTo(action.Url))">
+                <i class="@action.Icon"></i> @action.Label
+            </a>
+        }
+
+        <a class="logout" @onclick="CerrarSesion">
+            <i class="bi bi-door-open"></i> Cerrar Sesión
+        </a>
+    </div>
+</nav>
+
+<div class="home-content">
+    <h1>Bienvenido al Sistema de Reclamos</h1>
+    <p>Selecciona una opción en el menú superior para continuar.</p>
+</div>
+
+@code {
+    private readonly List<MenuAction> _availableActions = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await Auth.GetAuthenticationStateAsync();
+        var user = authState.User;
+        
+        // Cargar acciones dinámicamente según roles
+        if (user.IsInRole("Gerente") || user.IsInRole("Administrador"))
+            _availableActions.Add(new MenuAction("Registrar Reclamo", "/reclamo/nuevo", "bi bi-clipboard2-pulse-fill"));
+
+        if (user.IsInRole("Cliente") || user.IsInRole("Administrador"))
+            _availableActions.Add(new MenuAction("Consultar Reclamo", "/reclamo/consultar", "bi bi-search"));
+    }
+
+    public async Task CerrarSesion()
+    {
+        try
+        {
+            if (Auth is AuthenticationService authService)
+            {
+                await authService.Logout();
+                Navegador.NavigateTo("/login", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al cerrar sesión: {ex.Message}");
+            ToastService.ShowError("Ocurrió un error inesperado al cerrar sesión.");
+        }
+    }
+
+    private record MenuAction(string Label, string Url, string Icon);
+}

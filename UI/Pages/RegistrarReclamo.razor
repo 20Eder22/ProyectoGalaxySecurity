@@ -1,0 +1,40 @@
+﻿@page "/reclamo/nuevo"
+@attribute [Authorize(Roles = "Gerente,Administrador")]
+
+<PageTitle>Registro de Reclamo</PageTitle>
+
+<div class="form-container">
+    <h2><i class="bi bi-pencil-square"></i> Registrar Reclamo</h2>
+
+    <EditForm Model="@ReclamoModel" OnValidSubmit="@OnRegistrarReclamo">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input id="descripcion" type="text" class="input-field"
+                   placeholder="Ingrese una breve descripción"
+                   @bind="ReclamoModel.Descripcion" required />
+            <ValidationMessage For="@(() => ReclamoModel.Descripcion)" />
+        </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha del Reclamo</label>
+            <input id="fecha" type="date" class="input-field"
+                   @bind="ReclamoModel.Fecha" required />
+            <ValidationMessage For="@(() => ReclamoModel.Fecha)" />
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn-submit">
+                <i class="bi bi-check-circle"></i>
+                Registrar
+            </button>
+
+            <button type="button" class="btn-secondary" @onclick="GoToMenu">
+                <i class="bi bi-arrow-left-circle"></i>
+                Regresar
+            </button>
+        </div>
+    </EditForm>
+</div>

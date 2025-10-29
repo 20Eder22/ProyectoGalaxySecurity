@@ -1,0 +1,30 @@
+﻿@page "/login"
+@inject IJSRuntime JS
+@inject HttpClient Http
+
+<EditForm Model="UserModel" OnValidSubmit="OnLogin">
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" class="input-field" placeholder="Usuario" @bind="UserModel.UserName" />
+        <input type="password" class="input-field" placeholder="Contraseña" @bind="UserModel.Password" />
+        <button type="submit" class="btn-submit">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Ingresar
+        </button>
+
+        <div class="form-group mb-3 mt-3">
+            <div id="cap-container"></div>
+        </div>
+    </div>
+</EditForm>
+
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("CAP.init", new { element = "#cap-container" });
+        }
+    }
+}
